@@ -19,15 +19,15 @@ our @EXPORT_OK = qw(generate_chart);
 
 sub _generate_axis {
     my ($summary_info) = @_;
-    my (@domain_axis, @range_axis_hits, @range_axis_miss, @range_axis_total);
+    my (@domain_axis, @range_axis_1, @range_axis_2, @range_axis_3);
 
     foreach my $block (@$summary_info) {
         push (@domain_axis, $block->{key});
-        push (@range_axis_hits, $block->{value}->{'Hit'});
-        push (@range_axis_miss, $block->{value}->{'Miss'});
-        push (@range_axis_total, $block->{value}->{'Total'});
+        push (@range_axis_1, $block->{value}->{'Axis1'});
+        push (@range_axis_2, $block->{value}->{'Axis2'});
+        push (@range_axis_3, $block->{value}->{'Axis3'});
     }
-    return (\@domain_axis, \@range_axis_hits, \@range_axis_miss, \@range_axis_total);
+    return (\@domain_axis, \@range_axis_1, \@range_axis_2, \@range_axis_3);
 }
 
 sub generate_chart {
@@ -35,7 +35,7 @@ sub generate_chart {
 
     my $cc = Chart::Clicker->new(width => 800, height => 600, format => 'png');
 
-    my($x_axis, $y_axis_hits, $y_axis_miss, $y_axis_total) = _generate_axis($summary_info);
+    my($x_axis, $y_axis_1, $y_axis_2, $y_axis_3) = _generate_axis($summary_info);
 
     my ( @k, @x_tick_values );
     for  my $datetime ( @$x_axis ) {
@@ -74,30 +74,30 @@ sub generate_chart {
     my $ds = Chart::Clicker::Data::DataSet->new;
     $ds->add_to_series(Chart::Clicker::Data::Series->new(
         keys    => \@k,
-        values  => $y_axis_hits,
-        name   => 'Hits',
+        values  => $y_axis_1,
+        name   => 'Axis1',
     ));
     $ca->add_to_colors($green);
     $cc->color_allocator($ca);
 
     $ds->add_to_series(Chart::Clicker::Data::Series->new(
         keys    => \@k,
-        values  => $y_axis_miss,
-        name   => 'Miss',
+        values  => $y_axis_2,
+        name   => 'Axi2',
     ));
     $ca->add_to_colors($red);
     $cc->color_allocator($ca);
 
     $ds->add_to_series(Chart::Clicker::Data::Series->new(
         keys    => \@k,
-        values  => $y_axis_total,
-        name   => 'Total',
+        values  => $y_axis_3,
+        name   => 'Axis3',
     ));
     $ca->add_to_colors($blue);
     $cc->color_allocator($ca);
     
     $cc->title->font->family('Helvetica');
-    $cc->title->text('Hit + Miss');
+    $cc->title->text('Title');
     $cc->title->font->size(20); 
     $cc->title->padding->bottom(5);
 
