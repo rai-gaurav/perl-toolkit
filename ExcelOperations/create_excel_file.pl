@@ -4,7 +4,6 @@ use warnings;
 use Excel::Writer::XLSX;
 use StringIterator;
 
-
 sub write_to_excel {
     my ($self, $output_file, $data_to_write) = @_;
     print "Writing output to $output_file ";
@@ -51,3 +50,6 @@ sub write_to_excel {
     print "Finished writing to file : $output_file";
     return 1;
 }
+
+# Pass your param here
+write_to_excel();
