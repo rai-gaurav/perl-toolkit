@@ -1,0 +1,8 @@
+{
+"mail" : {
+                "mail_from" : "test@xyz.com",
+                "mail_to" : ["grai@xyz.com"],
+                "mail_cc_to" : ["grai@xyz.com", "grai2@xyz.com"],
+                "smtp_server" : "abc.xyz"
+            }
+}
