@@ -1,4 +1,4 @@
-package URIOperations;
+package UriOperations;
 use strict;
 use warnings;
 use Win32::OLE;
