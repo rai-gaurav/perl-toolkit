@@ -27,6 +27,6 @@ sub get_checksum {
     return $checksum;
 }
 
-# Usage
+# Calculate cheksum of the given file
 my $checksum = get_checksum("/home/grai/test.txt", "SHA256");
 print $checksum;
