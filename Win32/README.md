@@ -1,4 +1,4 @@
-Automate Win32 GUI using Perl and Win32::GuiTest
+# Automate Win32 GUI using Perl and Win32::GuiTest
 
 This is just a small example on win32 Gui Automation
 1. It will open the given directory in windows explorer (Right now C:/Perl64/lib/),
