@@ -22,7 +22,7 @@ There are several ways to setup the particular architecture mentioned above.
 
 All these WSGI/PSGI/RACK are plugin provided by uWSGI which extend across almost all languages.
 
-So the question is which option is best or which has more advantage over other - I will try to explain with help of Perl but I hope it is true across other language as eveyone is inspired from each other (tongue).
+So the question is which option is best or which has more advantage over other - I will try to explain with help of Perl but I hope it is true across other language as eveyone is inspired from each other.
 
     1. The PSGI 'protocol' (like WSGI) is essentially a calling convention for a subroutine. A request enters the application as a subroutine call with a hash as an argument. The application responds through the return value of the subroutine: an arrayref that contains an HTTP status code, HTTP headers and body. There is more than that, but those are the essential elements.
     2. What this means is that a process can only implement PSGI if the process contains a Perl interpreter. To achieve this, the process can be implemented in Perl or implemented in a language like C that can be loaded by the libperl.so shared library. Similarly, a process can only implement WSGI if it contains a Python interpreter.
@@ -78,7 +78,7 @@ Each language has a plugin associated with it -
 
 # How to Run:
 
-    1. When running On terminal (without web server)-
+    1. When running on terminal (without web server)-
         1. Python:
             uwsgi --http-socket :8080 --psgi <Application Script>
         2. Perl:
