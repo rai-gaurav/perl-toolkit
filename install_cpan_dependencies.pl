@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# This script is intended to install all the cpan module dependendency automatically.
+# This script is intended to install all the cpan module dependendency automatically (windows and Linux).
 # If you want to add/delete any new/old modules, add/delete that to '__DATA__' section.
 # Run this only once when setting the environment for first time.
 # Run this script as administrator/root or with elevated user rights.
@@ -21,24 +21,21 @@ sub check_pre_req_package {
     my $package = shift;
 
     print "\n---> Checking module - $package";
-    eval {
-        require $package;
-    };
-    if ($@) { 
+    eval { require $package; };
+    if ($@) {
         print "\n---> Error loading module: $@";
     }
-    else { 
-        print "\n---> Package $package is already installed\n"; 
+    else {
+        print "\n---> Package $package is already installed\n";
         return 1;
     }
 
     my $exit_code;
     print "\n---> Installing $package...";
-    eval {
-        $exit_code = system("cpan $package > cpan_installation.log");
-    };
+    eval { $exit_code = system("cpan $package > cpan_installation.log"); };
     if ($@ or $exit_code != 0) {
-        print "\n---> [ERROR] CPAN installation for $package failed with an exit code of $exit_code. $@";
+        print
+            "\n---> [ERROR] CPAN installation for $package failed with an exit code of $exit_code. $@";
         print "\n Please try to install $package manually if needed\n";
         return 0;
     }
@@ -51,7 +48,7 @@ sub check_pre_req_package {
 sub main {
     my $os_name = $^O;
 
-    print "\nRunning on operating System : ".$os_name."\n";
+    print "\nRunning on operating System : " . $os_name . "\n";
     configure_cpan;
 
     while (my $pre_req_packages = <DATA>) {
@@ -71,7 +68,6 @@ File::Find::Rule
 Mojo::UserAgent
 Email::Sender
 Email::MIME
-URI::Escape
 Log::Log4perl
 DateTime
 Excel::Writer::XLSX
