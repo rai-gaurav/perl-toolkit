@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # This script is used to delete older fiels and folder from a given dir
 # There is an option for 'dry-run' where you can cross verify what will be deleted
-# It can recursively delete files and folder both on windows and nix platform
+# It can recursively delete files and folder both on windows and Linux platform
 use strict;
 use warnings;
 use Getopt::Long;
