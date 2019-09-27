@@ -1,0 +1,5 @@
+# Crontab which you want to put for your project
+# Please enter the commands and parameters inside ""
+
+# The cron entry which fires every 10 minutes
+0-59/5 * * * * "cd <project_dir> && python3 script.py"
