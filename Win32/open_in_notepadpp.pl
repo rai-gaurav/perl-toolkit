@@ -7,8 +7,8 @@ use Win32Operations;
 sub initialize_logger {
 
     # initialize logger, you can put this in config file also
-    my $conf = q(
-            log4perl.category.Foo.Bar          = INFO, Logfile, Screen
+    my $conf = qq(
+            log4perl.category                  = INFO, Logfile, Screen
 
             log4perl.appender.Logfile          = Log::Log4perl::Appender::File
             log4perl.appender.Logfile.filename = win32op.log
@@ -16,7 +16,7 @@ sub initialize_logger {
             log4perl.appender.Logfile.autoflush = 1
             log4perl.appender.Logfile.buffered  = 0
             log4perl.appender.Logfile.layout   = Log::Log4perl::Layout::PatternLayout
-            log4perl.appender.Logfile.layout.ConversionPattern = [%r] %F %L %m%n
+            log4perl.appender.Logfile.layout.ConversionPattern = [%d{ISO8601} %p] [%r] (%F{3} line %L)> %m%n
 
             log4perl.appender.Screen         = Log::Log4perl::Appender::Screen
             log4perl.appender.Screen.stderr  = 0
