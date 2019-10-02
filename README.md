@@ -13,5 +13,11 @@ There are multiple scripts for different purpose-
 9. JIRA - Perform jira operartions using jira api and perl
 10. get_checksum.pl - Generate a checksum for a given file (MD2, MD4, MD5, SHA1, SHA256, SHA384, SHA512) on both linux and windows
 11. install_cpan_dependencies.pl - Automate module installation using cpan
-12. 
+12. special_functions.pl - How special functions work(BEGIN,END, INIT,CHECK etc.)
+13. purge_old_files.pl - Recursively delete old files in a given dir(you have dey run to check what will be deleted).
+14. uwsgi(PSGI) - How to setup uwsgi in web app (tried and tested for Mojolicious app).
+
+You are free to use, edit it and suit it to yourselve.
+To the Perl For the Perl By the Perl
+
 
