@@ -10,4 +10,4 @@ This is just a small example on win32 Gui Automation
 7. Close the windows explorer
 
 
-We can update or extend it to perform number of operation suited to your need.
+you can update or extend it to perform number of operation suited to your need.
