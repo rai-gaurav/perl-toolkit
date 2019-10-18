@@ -2,7 +2,7 @@
 
 There are multiple scripts for different purpose-
 
-1. AWS - Right now it contains using AWS wit perl(awscli)
+1. AWS - Right now it contains using AWS S3 with perl(awscli)
 2. Charts - Create beautifile charts in Perl. Right now you can create multi-line charts.
 3. CronSchedular - Schedular crontab using Perl(Linux)
 4. ExcelOperations - Create excel files and populate data into that using Perl.
