@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use UriOperations;
+use Log::Log4perl 
 
 my $uri_op = UriOperations->new( "logger" => "<log4perl object>" );
 
