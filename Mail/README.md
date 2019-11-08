@@ -2,9 +2,9 @@
 
 ## Requirements -
 
-1. HTML::Template --> if you don't want to use templated not needed or you can replace it with some else
+1. HTML::Template --> if you don't want to use template its not needed or you can replace it with some else
 2. Email::MIME
-3. Email::Sender::Simple qw( sendmail )
+3. Email::Sender::Simple
 4. Email::Sender::Transport::SMTP
 5. IO::All
 
