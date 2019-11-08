@@ -18,7 +18,7 @@ sub new {
 sub generate_mail_template {
     my ( $self, $filename, $parameters ) = @_;
 
-# create mail body template. We don't want to die/exit if any of the parameters is missing
+    # create mail body template. We don't want to die/exit if any of the parameters is missing
     my $template = HTML::Template->new( filename => $filename, die_on_bad_params => 0 );
     $template->param($parameters);
     return $template;
