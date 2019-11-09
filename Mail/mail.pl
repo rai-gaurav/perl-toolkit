@@ -1,11 +1,14 @@
 use strict;
 use warnings;
 use JSON;
+use Cwd qw( abs_path );
+use File::Basename qw( dirname );
+use lib dirname(abs_path($0));
 use SendMail;
 
 
 sub read_json_file {
-    my ($self, $json_file) = @_;
+    my ($json_file) = @_;
     print "Reading $json_file";
 
     open (my $in, '<', $json_file) or print "Unable to open file $json_file : $!";
@@ -16,13 +19,18 @@ sub read_json_file {
     return ($config_data);
 }
 
-read_json_file("config.json");
+my $config = read_json_file("config.json");
 
-my $mail = SendMail->new("config" => $config);
+my $mail = SendMail->new("config" => $config->{'mail'});
 
-my $mail_parameters = "<param which you want to substitute in mail template>";
-my $attachments = "<path to mail attachments>";
-my $mail_template = "<path to mail template>";
+# param which you want to substitute in mail template
+my $mail_parameters = "NAME => 'Gaurav', LOCATION => 'INDIA'";
+
+# path to mail attachments
+my $attachments = [];
+
+# path to mail template
+my $mail_template = "mail_template/template.html";
 
 print "Generating HTML template for mail body";
 my $template = $mail->generate_mail_template($mail_template, $mail_parameters);
