@@ -28,20 +28,21 @@ sub create_mail {
     my ( $self, $file_attachments, $mail_subject, $mail_body ) = @_;
 
     my @mail_attachments;
-    foreach my $attachment (@$file_attachments) {
-        my $single_attachment = Email::MIME->create(
-            attributes => {
-                filename     => basename($attachment),
-                content_type => "application/json",
-                disposition  => 'attachment',
-                encoding     => 'base64',
-                name         => basename($attachment)
-            },
-            body => io->file($attachment)->all
-        );
-        push( @mail_attachments, $single_attachment );
+    if (@$file_attachments) {
+        foreach my $attachment (@$file_attachments) {
+            my $single_attachment = Email::MIME->create(
+                attributes => {
+                    filename     => basename($attachment),
+                    content_type => "application/json",
+                    disposition  => 'attachment',
+                    encoding     => 'base64',
+                    name         => basename($attachment)
+                },
+                body => io->file($attachment)->all
+            );
+            push( @mail_attachments, $single_attachment );
+        }
     }
-
     # Multipart message : It contains attachment as well as html body
     my @parts = (
         @mail_attachments,
