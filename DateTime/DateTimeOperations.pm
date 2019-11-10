@@ -3,6 +3,22 @@ use warnings;
 use DateTime;
 use DateTime::Format::Strptime;
 
+sub new {
+    my ($class, @arguments) = @_;
+    my $self = {@arguments};
+    bless $self, $class;
+    $self->_initialize_datetime;
+    return $self;
+}
+
+# Initialize your datetime object
+sub _initialize_datetime {
+    my $self = shift;
+    my $dt   = $self->get_datetime_now;
+    $self->{'datetime'} = $dt;
+    return $self;
+}
+
 # Get current datetime in UTC
 sub get_datetime_now {
     my $self = shift;
