@@ -1,0 +1,6 @@
+{
+    "aws": {
+        "bucket": "bucketName",
+        "key": "keyName"
+    }
+}

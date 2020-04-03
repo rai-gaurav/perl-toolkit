@@ -3,17 +3,24 @@ use strict;
 use warnings;
 use MCE;
 
+sub new {
+    my ($class, @arguments) = @_;
+    my $self = {@arguments};
+    bless $self, $class;
+    return $self;
+}
+
 # Called once at the beginning
 sub _user_begin {
     my ($mce) = @_;
-    $mce->print( "Process Id : " . $mce->pid . " start" );
+    $mce->print("Process Id : " . $mce->pid . " started");
     return 1;
 }
 
 # Called once at the end
 sub _user_end {
     my ($mce) = @_;
-    $mce->print( "Process Id : " . $mce->pid . " end" );
+    $mce->print("Process Id : " . $mce->pid . " ended");
     return 1;
 }
 
@@ -25,14 +32,16 @@ sub _run_parrallel {
     $mce->print("Starting worker -> $worker_id (PID: $$) ($counter)...");
 
     my $cmd_output;
-    eval { $cmd_output = `<your program to run>`; };
+
+    # Write here the command you want to run
+    eval { $cmd_output = `echo "hello there"`; };
     if ($@) {
-        $mce->print( \*STDERR,
-            "Exception while running worker => $counter : $@" );
+        $mce->print(\*STDERR, "Exception while running worker => $counter : $@");
         return 0;
     }
     else {
         $mce->print("Completed worker -> $worker_id for counter : $counter");
+        $mce->print("Output: " . $cmd_output);
         return 1;
     }
 }
@@ -46,8 +55,8 @@ sub start_multicore_engine {
     # Say we have to run on 10 cores
     # You can push any other data which you want to pass to the script which
     # will be running on multi core
-    foreach my $counter ( 0 .. 10 ) {
-        push( @input_data, [$counter] );
+    foreach my $counter (0 .. 10) {
+        push(@input_data, [$counter]);
     }
 
     # you can set the max_worker as 'auto' which will be number of lcores, max 8
@@ -59,10 +68,10 @@ sub start_multicore_engine {
         user_func   => \&_run_parrallel,
         max_retries => 3,
         user_output => sub {
-            $self->{logger}->info( $_[0] );
+            $self->{logger}->info($_[0]);
         },
         user_error => sub {
-            $self->{logger}->error( $_[0] );
+            $self->{logger}->error($_[0]);
         },
     );
     $mce->run;

@@ -1,6 +1,9 @@
 use strict;
 use warnings;
 use Log::Log4perl;
+use Cwd qw( abs_path );
+use File::Basename qw( dirname );
+use lib dirname(abs_path($0));
 
 use Win32Operations;
 
@@ -31,11 +34,10 @@ sub initialize_logger {
 my $logger    = initialize_logger();
 my $win32_obj = Win32Operations->new("logger" => $logger);
 
-
 # This will open the given dir in windows explorer
 # Right click on the given filename and open it in Notepad++ and then close it.
-my $input_dir          = "C:/Perl64/lib";
-my $filename_to_open   = "strict.pm";
+my $input_dir          = "C:/Program Files/Notepad++";
+my $filename_to_open   = "readme.txt";
 my $max_retry_attempts = 5;
 
 $win32_obj->start_explorer_operations($input_dir, $filename_to_open, $max_retry_attempts);

@@ -6,7 +6,7 @@ use File::Basename;
 
 sub new {
     my ($class, @arguments) = @_;
-    my $self = { @arguments };
+    my ($self) = {@arguments};
     bless $self, $class;
     $self->_initialize;
     return $self;
@@ -36,9 +36,7 @@ sub upload_to_S3 {
     if (-d $input) {
         my $cmd = "aws s3 sync " . $input . " s3://" . $self->_bucket . "/" . $self->_key . "/";
         $self->{'logger'}->info("Executing '$cmd'");
-        eval {
-            $upload_output = `$cmd`;
-        };
+        eval { $upload_output = `$cmd`; };
         if ($@) {
             $self->{'logger'}->error("Caught Exception while uploading directory to S3: $@");
         }
@@ -49,12 +47,16 @@ sub upload_to_S3 {
     }
     elsif (-f $input) {
         my $filename = fileparse($input);
-        my $cmd = "aws s3 cp " . $input ." s3://" . $self->_bucket . "/" . $self->_key . "/". $filename;
+        my $cmd
+            = "aws s3 cp "
+            . $input
+            . " s3://"
+            . $self->_bucket . "/"
+            . $self->_key . "/"
+            . $filename;
         $self->{'logger'}->info("Reading the file : $input\n\n");
         $self->{'logger'}->info("Executing '$cmd'");
-        eval {
-            $upload_output = `$cmd`;
-        };
+        eval { $upload_output = `$cmd`; };
         if ($@) {
             $self->{'logger'}->error("Caught Exception while uploading file to S3: $@");
         }
@@ -64,7 +66,9 @@ sub upload_to_S3 {
         }
     }
     else {
-        $self->{'logger'}->error("$input is neither a directory nor a file. Please provide a proper directory or file to upload to S3");
+        $self->{'logger'}->error(
+            "$input is neither a directory nor a file. Please provide a proper directory or file to upload to S3"
+        );
     }
     return $upload_output;
 }
@@ -77,9 +81,7 @@ sub download_from_S3 {
     if (-d $output) {
         my $cmd = "aws s3 sync s3://" . $self->_bucket . "/" . $self->_key . "/" . " " . $output;
         $self->{'logger'}->info("Executing '$cmd'");
-        eval {
-            $dwnld_output = `$cmd`;
-        };
+        eval { $dwnld_output = `$cmd`; };
         if ($@) {
             $self->{'logger'}->error("Caught Exception while downloading directory from S3: $@");
         }
@@ -90,11 +92,14 @@ sub download_from_S3 {
     }
     else {
         my $filename = fileparse($output);
-        my $cmd = "aws s3 cp s3://" . $self->_bucket . "/" . $self->_key . "/" . $filename . " " . $output;
+        my $cmd
+            = "aws s3 cp s3://"
+            . $self->_bucket . "/"
+            . $self->_key . "/"
+            . $filename . " "
+            . $output;
         $self->{'logger'}->info("Executing '$cmd'");
-        eval {
-            $dwnld_output = `$cmd`;
-        };
+        eval { $dwnld_output = `$cmd`; };
         if ($@) {
             $self->{'logger'}->error("Caught Exception while downloading file from S3: $@");
         }
@@ -112,9 +117,7 @@ sub get_from_S3 {
     my $get_output;
     my $cmd = "aws s3 ls s3://" . $self->_bucket . "/" . $self->_key . "/";
     $self->{'logger'}->info("Executing '$cmd'");
-    eval {
-        $get_output = `$cmd`;
-    };
+    eval { $get_output = `$cmd`; };
     if ($@) {
         $self->{'logger'}->error("Caught Exception while getting from S3: $@");
     }
@@ -129,15 +132,13 @@ sub get_from_S3 {
 sub delete_from_S3 {
     my ($self) = @_;
     my $delete_output;
-    my $cmd = "aws s3 rm s3://" . $self->_bucket . "/" . $self->_key . " --recursive"; 
+    my $cmd = "aws s3 rm s3://" . $self->_bucket . "/" . $self->_key . " --recursive";
     $self->{'logger'}->info("Executing '$cmd'");
-    eval {
-        $delete_output = `$cmd`;
-    };
+    eval { $delete_output = `$cmd`; };
     if ($@) {
         $self->{'logger'}->error("Caught Exception while deleting from S3: $@");
     }
-     else {
+    else {
         $self->{'logger'}->info("File deleted successfully");
         $self->{'logger'}->debug($delete_output);
     }

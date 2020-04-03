@@ -120,10 +120,10 @@ sub is_punycode {
     my ($self, $uri) = @_;
     $uri = $uri // '';
 
-# To prevent non-international domain names containing hyphens from being accidentally interpreted as Punycode,
-# international domain name Punycode sequences have a so-called ASCII Compatible Encoding (ACE) prefix, "xn--", prepended.
-# An IDN takes the punycode encoding, and adds a "xn--" in front of it.
-# So "münich.com" would become "xn--mnich-kva.com".
+    # To prevent non-international domain names containing hyphens from being accidentally interpreted as Punycode,
+    # international domain name Punycode sequences have a so-called ASCII Compatible Encoding (ACE) prefix, "xn--", prepended.
+    # An IDN takes the punycode encoding, and adds a "xn--" in front of it.
+    # So "münich.com" would become "xn--mnich-kva.com".
     if ($uri =~ /xn--.+/i) {
         return 1;
     }

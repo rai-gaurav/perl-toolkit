@@ -12,6 +12,7 @@ use File::Path qw( remove_tree );
 
 BEGIN {
     $ENV{"SCRIPT_DIR"} = dirname(abs_path($0));
+
     # For Windows
     $ENV{"SCRIPT_DIR"} =~ s/\\/\//g;
 }
@@ -25,9 +26,7 @@ sub usage {
 
 sub process_parameters {
     if (@ARGV > 0) {
-        GetOptions('dryrun|d:s' => \$dry_run,
-                    'help|h|?' => \$help
-        ) or die usage;
+        GetOptions('dryrun|d:s' => \$dry_run, 'help|h|?' => \$help) or die usage;
     }
     usage if ($help);
 
@@ -52,10 +51,12 @@ sub main {
 
     # We are only purging directory which match with date format (here -'YYYY-MM-DD') in the given @root_directories
     # You can change it with your own ,matching regex
-    my @dirs = File::Find::Rule->new->maxdepth(1)->directory->name(qr /\d{4}-\d{2}-\d{2}/)->in(@root_directories);
+    my @dirs = File::Find::Rule->new->maxdepth(1)->directory->name(qr /\d{4}-\d{2}-\d{2}/)
+        ->in(@root_directories);
 
-# We are only purging log files which match with date format 'YYYY-MM-DD' in the given @log_directories
-    my @log_dirs = File::Find::Rule->new->file()->name(qr /\d{4}-\d{2}-\d{2}/)->in(@log_directories);
+    # We are only purging log files which match with date format 'YYYY-MM-DD' in the given @log_directories
+    my @log_dirs
+        = File::Find::Rule->new->file()->name(qr /\d{4}-\d{2}-\d{2}/)->in(@log_directories);
 
     for my $dir (@dirs, @log_dirs) {
         my @stats = stat($dir);
@@ -68,7 +69,8 @@ sub main {
                         error   => \my $err_list,
                         safe    => 1,
                         result  => \my $list,
-                        keep_root => 0    # Make it 1 if you want to keep initially specified directories
+                        keep_root =>
+                            0    # Make it 1 if you want to keep initially specified directories
                     }
                 );
 
