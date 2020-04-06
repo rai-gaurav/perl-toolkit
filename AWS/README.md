@@ -7,7 +7,7 @@ But in case you want to use aws cli, this is the way.
 1. [awscli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 2. AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION should be set in environment.
 
-   Currently they are in etc/setup_env
+   Currently they are in 'etc/setup_env'. Update it to appropriate value before using it.
 3. Log4perl
 
 
