@@ -5,7 +5,7 @@ But in case you want to use aws cli, this is the way.
 
 ## Requirements -
 1. [awscli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
-2. AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION should be set in environment. You can configure it using [awscli-configuration] (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+2. AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION should be set in environment. You can configure it using [awscli-configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
    Currently as an example they are in 'etc/setup_env'. Update it to appropriate value before using it and export it in environment.
 3. Log4perl
