@@ -4,9 +4,10 @@ This is the small step to use AWS functionality using Perl. There is already [PA
 But in case you want to use aws cli, this is the way.
 
 ## Requirements -
-1. awscli
+1. [awscli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 2. AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION should be set in environment.
-    Currently thwy are in etc/setup_env
+
+   Currently they are in etc/setup_env
 3. Log4perl
 
 
