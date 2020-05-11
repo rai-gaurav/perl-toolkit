@@ -1,5 +1,7 @@
 #!/bin/bash
-# This script will be runned by docker
+# This script can be runned by docker or directly by provide the parameter
+# ./start_myapp.sh -m "development" or
+# ./start_myapp.sh -m "production"
 
 # Restrat Web server(here Apache)
 service apache2 restart
