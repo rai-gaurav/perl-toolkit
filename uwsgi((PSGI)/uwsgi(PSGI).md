@@ -99,7 +99,7 @@ Each language has a plugin associated with it -
         Perl-
             uwsgi_psgi --socket :8080 --protocol=http --psgi script/my_app
 
-    3. You can create a config file with all the parameters and pass that file to uwsgi (see uwsgi.conf for example)
+    3. You can create a config file with all the parameters and pass that file to uwsgi (see uwsgi.conf for example and start_myapp.sh about how to pass it as param)
 
     4. web server(Apache, nginx) changes needed-
 
