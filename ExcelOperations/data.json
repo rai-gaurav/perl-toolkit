@@ -1,0 +1,16 @@
+{
+    "Financial Info": [
+        { "Date": ["01-22-2021", "04-05-2017", "07-12-2019", "19-05-2020"] },
+        { "Segment": ["Government", "Enterprise", "Channel Partners", "Midmarket"] },
+        { "Country": ["Canada", "Germany", "France", "India"] },
+        { "Product": ["Montana", "Paseo", "VTT", "Hero"] },
+        { "Unit Sold": [1618, 888, 1545, 5693] },
+        { "Sale Price": [20, 350, 300, 693] },
+        { "Profit": [2457, 0, -350, 3763] }
+    ],
+    "User Info": [
+        { "Name": ["Gaurav", "Saurabh"] },
+        { "Age": [10, 5] },
+        { "Salary": [5673, 3355] }
+    ]
+}

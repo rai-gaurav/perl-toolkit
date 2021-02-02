@@ -5,9 +5,13 @@ use warnings;
 sub new {
     my ($class, @arguments) = @_;
     my %self = @arguments;
-    $self{set}   = ["A" .. "Z"] unless exists $self{set};
-    $self{value} = -1 unless exists $self{value};
-    $self{size}  = @{$self{set}};
+    if (!exists $self{set}) {
+        $self{set} = ["A" .. "Z"];
+    }
+    if (!exists $self{value}) {
+        $self{value} = -1;
+    }
+    $self{size} = @{$self{set}};
 
     return bless \%self, $class;
 }
@@ -19,12 +23,12 @@ sub increment {
 
 sub get_current {
     my $self = shift;
-    my $n = $self->{value};
+    my $n    = $self->{value};
     my $size = $self->{size};
-    my $s = "";
+    my $s    = "";
 
     while ($n >= $size) {
-        my $offset  = $n % $size;
+        my $offset = $n % $size;
         $s = $self->{set}[$offset] . $s;
         $n /= $size;
     }
