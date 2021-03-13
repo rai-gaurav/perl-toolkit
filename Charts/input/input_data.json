@@ -1,0 +1,25 @@
+{
+    "title": "Title of chart",
+    "domainAxis": {
+        "data": ["2018-04-15", "2019-04-16", "2020-04-17", "2021-04-18"],
+        "legendName": "Date",
+        "label": "Date"
+    },
+    "rangeAxis": {
+        "lines": {
+            "line1": {
+                "data": [10,2,3,5],
+                "legendName": "Q1"
+            },
+            "line2": {
+                "data": [30,5,8,9],
+                "legendName": "Q2"
+            },
+            "line3": {
+                "data": [6,9,2,9],
+                "legendName": "Q3"
+            }
+        },
+        "label": "Numbers of "
+    }
+}
