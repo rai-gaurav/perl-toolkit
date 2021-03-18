@@ -1,25 +1,28 @@
 {
-    "title": "Title of chart",
+    "title": "Number of automobiles sold per day by manufacturer",
     "domainAxis": {
-        "data": ["2018-04-15", "2019-04-16", "2020-04-17", "2021-04-18"],
-        "legendName": "Date",
+        "data": ["2020-04-15", "2020-04-16", "2020-04-17", "2020-04-18"],
         "label": "Date"
     },
     "rangeAxis": {
         "lines": {
             "line1": {
-                "data": [10,2,3,5],
-                "legendName": "Q1"
+                "data": [10,3,5,9],
+                "legendName": "Honda"
             },
             "line2": {
-                "data": [30,5,8,9],
-                "legendName": "Q2"
+                "data": [20,15,8,10],
+                "legendName": "Toyota"
             },
             "line3": {
-                "data": [6,9,2,9],
-                "legendName": "Q3"
+                "data": [6,19,12,4],
+                "legendName": "Ford"
+            },
+            "line4": {
+                "data": [16,10,6,12],
+                "legendName": "Renault"
             }
         },
-        "label": "Numbers of "
+        "label": "Numbers of automobiles sold"
     }
 }

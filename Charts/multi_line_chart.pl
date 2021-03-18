@@ -24,7 +24,7 @@ sub read_json_file {
     close($in) or print "\nUnable to close file : $!";
 
     my $config_data = decode_json($json_text);
-    return ($config_data);
+    return $config_data;
 }
 
 sub main {

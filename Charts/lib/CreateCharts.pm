@@ -27,13 +27,14 @@ sub _generate_specific_colors {
     my ($self) = @_;
 
     # build the color allocator
+    # Add more colors in case your line is more than 5
     my $ca = Chart::Clicker::Drawing::ColorAllocator->new;
 
     my $red    = Graphics::Color::RGB->new({red => .75, green => 0,   blue => 0,   alpha => .8});
     my $green  = Graphics::Color::RGB->new({red => 0,   green => .75, blue => 0,   alpha => .8});
     my $blue   = Graphics::Color::RGB->new({red => 0,   green => 0,   blue => .75, alpha => .8});
-    my $orange = Graphics::Color::RGB->new(red => .88, green => .48, blue => .09, alpha => 1);
-    my $grey   = Graphics::Color::RGB->new(red => .36, green => .36, blue => .36, alpha => 1);
+    my $orange = Graphics::Color::RGB->new(red => .88, green => .48, blue => .09, alpha => .8);
+    my $grey   = Graphics::Color::RGB->new(red => .36, green => .36, blue => .36, alpha => .8);
 
     $ca->add_to_colors($green);
     $ca->add_to_colors($red);
@@ -48,11 +49,9 @@ sub _genrate_random_colors {
 
     # let Chart::Clicker autmatically pick complementing colors for you
     # https://metacpan.org/pod/Chart::Clicker::Drawing::ColorAllocator#AUTOMATIC-COLOR-ALLOCATION
-    my $ca = Chart::Clicker::Drawing::ColorAllocator->new(
-        {
+    my $ca = Chart::Clicker::Drawing::ColorAllocator->new({
             seed_hue => 0,    #red
-        }
-    );
+    });
     return $ca;
 }
 
@@ -91,18 +90,20 @@ sub _style_legend {
 
 sub _add_background {
     my ($self, $cc) = @_;
-    my $moregrey = Graphics::Color::RGB->new(red => .898, green => .898, blue => .858, alpha => 1);
-    my $lightolivegreen = Graphics::Color::RGB->new(red => .96, green => .96, blue => .93, alpha => 1);
 
-    $cc->plot->grid->visible(0);
-    $cc->background_color($lightolivegreen);
-    $cc->plot->grid->background_color($moregrey);
+    # https://metacpan.org/pod/Graphics::Color::RGB
+    my $titan_white = Graphics::Color::RGB->new(red => .98, green => .98, blue => 1, alpha => 1);
+    my $white       = Graphics::Color::RGB->new(red => 1,   green => 1,   blue => 1, alpha => 1);
+
+    $cc->plot->grid->visible(1);
+    $cc->background_color($white);
+    $cc->plot->grid->background_color($titan_white);
 }
 
 sub _add_label {
     my ($self, $def, $x_label, $y_label) = @_;
-    $def->range_axis->label($x_label);
-    $def->domain_axis->label($y_label);
+    $def->domain_axis->label($x_label);
+    $def->range_axis->label($y_label);
     $def->range_axis->label_font->family('Helvetica');
     $def->range_axis->label_font->size(20);
 }
@@ -164,10 +165,10 @@ sub generate_chart {
     $defctx->range_axis->range(Chart::Clicker::Data::Range->new(lower => 0));
     $defctx->range_axis->format('%d');
 
-    #$defctx->range_axis->fudge_amount(.01);
+    # $defctx->range_axis->fudge_amount(.01);
 
     # For domain axis
-    #$defctx->domain_axis->format('%d');
+    # $defctx->domain_axis->format('%d');
 
     $defctx->domain_axis(
         Chart::Clicker::Axis::DateTime->new(
@@ -180,9 +181,9 @@ sub generate_chart {
             orientation      => 'vertical',
             label            => 'Date',
             label_font       => Graphics::Primitive::Font->new(
-                {family => 'Helvetica', size => 20, slant => 'normal'}
-            ),
-            tick_font => Graphics::Primitive::Font->new({family => 'Helvetica', slant => 'normal'}),
+                                    {family => 'Helvetica', size => 20, slant => 'normal'}
+                                ),
+            tick_font        => Graphics::Primitive::Font->new({family => 'Helvetica', slant => 'normal'}),
         )
     );
 
