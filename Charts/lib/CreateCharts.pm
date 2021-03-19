@@ -27,20 +27,22 @@ sub _generate_specific_colors {
     my ($self) = @_;
 
     # build the color allocator
-    # Add more colors in case your line is more than 5
+    # Add more colors in case your line is more than 6
     my $ca = Chart::Clicker::Drawing::ColorAllocator->new;
 
     my $red    = Graphics::Color::RGB->new({red => .75, green => 0,   blue => 0,   alpha => .8});
     my $green  = Graphics::Color::RGB->new({red => 0,   green => .75, blue => 0,   alpha => .8});
     my $blue   = Graphics::Color::RGB->new({red => 0,   green => 0,   blue => .75, alpha => .8});
     my $orange = Graphics::Color::RGB->new(red => .88, green => .48, blue => .09, alpha => .8);
-    my $grey   = Graphics::Color::RGB->new(red => .36, green => .36, blue => .36, alpha => .8);
+    my $aqua   = Graphics::Color::RGB->new(red => 0, green => 1, blue => 1, alpha => .8);
+    my $fuchsia = Graphics::Color::RGB->new(red => 1, green => 0, blue => 1, alpha => .8);
 
     $ca->add_to_colors($green);
     $ca->add_to_colors($red);
     $ca->add_to_colors($blue);
     $ca->add_to_colors($orange);
-    $ca->add_to_colors($grey);
+    $ca->add_to_colors($aqua);
+    $ca->add_to_colors($fuchsia);
 
     return $ca;
 }
@@ -73,19 +75,16 @@ sub _add_series {
 sub _add_title {
     my ($self, $cc, $title) = @_;
     $cc->title->font->family('Helvetica');
-    $cc->width(500);
-    $cc->height(500);
 
     $cc->title->text($title);
     $cc->title->font->size(20);
-    $cc->title->padding->bottom(5);
+    $cc->title->padding->bottom(10);
 }
 
 sub _style_legend {
     my ($self, $cc) = @_;
     $cc->legend->font->size(20);
     $cc->legend->font->family('Helvetica');
-    $cc->border->width(0);
 }
 
 sub _add_background {
@@ -98,13 +97,14 @@ sub _add_background {
     $cc->plot->grid->visible(1);
     $cc->background_color($white);
     $cc->plot->grid->background_color($titan_white);
+    $cc->border->width(0);
 }
 
 sub _add_label {
     my ($self, $def, $x_label, $y_label) = @_;
     $def->domain_axis->label($x_label);
     $def->range_axis->label($y_label);
-    $def->range_axis->label_font->family('Helvetica');
+    $def->domain_axis->label_font->size(20);
     $def->range_axis->label_font->size(20);
 }
 
@@ -159,35 +159,29 @@ sub generate_chart {
     $self->_add_background($cc);
 
     my $defctx = $cc->get_context('default');
-    $self->_add_label($defctx, $x_axis->{label}, $y_axis->{label});
 
     # For range axis
     $defctx->range_axis->range(Chart::Clicker::Data::Range->new(lower => 0));
     $defctx->range_axis->format('%d');
 
-    # $defctx->range_axis->fudge_amount(.01);
+    # https://metacpan.org/pod/Chart::Clicker::Axis#fudge_amount
+    # $defctx->range_axis->fudge_amount(0.02);
 
     # For domain axis
-    # $defctx->domain_axis->format('%d');
-
     $defctx->domain_axis(
         Chart::Clicker::Axis::DateTime->new(
-            format => "%Y-%m-%d",
-            ticks  => scalar @{$x_axis->{data}},
-
-            #tick_values      => \@x_tick_values,
+            format           => "%Y-%m-%d",
+            ticks            => scalar @{$x_axis->{data}},
             position         => 'bottom',
             tick_label_angle => 0.78539816,                       # 45 deg in radians
             orientation      => 'vertical',
-            label            => 'Date',
-            label_font       => Graphics::Primitive::Font->new(
-                                    {family => 'Helvetica', size => 20, slant => 'normal'}
-                                ),
-            tick_font        => Graphics::Primitive::Font->new({family => 'Helvetica', slant => 'normal'}),
+            tick_font        => Graphics::Primitive::Font->new({family => 'Helvetica', slant => 'normal'})
         )
     );
 
+    $self->_add_label($defctx, $x_axis->{label}, $y_axis->{label});
     $self->_add_shapes_to_lines($defctx);
+
     $cc->write_output($chart_loc);
 }
 
